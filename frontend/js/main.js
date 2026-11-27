@@ -5,9 +5,11 @@
    ============================================ */
 
 // ---- API Configuration ----
-const API_ORIGIN = (window.location.port === '5500' || window.location.protocol === 'file:')
-    ? 'http://localhost:3000'
-    : window.location.origin;
+const API_ORIGIN = (window.APP_CONFIG && typeof window.APP_CONFIG.getBackendOrigin === 'function')
+    ? window.APP_CONFIG.getBackendOrigin()
+    : ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:')
+        ? (window.location.port === '3000' ? window.location.origin : 'http://localhost:3000')
+        : 'https://internship-project-backend-black.vercel.app');
 const API_BASE = API_ORIGIN + '/api';
 
 // ---- Mobile Menu Toggle ----

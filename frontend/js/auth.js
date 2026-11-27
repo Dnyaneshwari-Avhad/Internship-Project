@@ -6,9 +6,11 @@
    ALL keys come from .env via the backend.
    ============================================ */
 
-const AUTH_ORIGIN = (window.location.port === '5500' || window.location.protocol === 'file:')
-    ? 'http://localhost:3000'
-    : (window.location.origin || '');
+const AUTH_ORIGIN = (window.APP_CONFIG && typeof window.APP_CONFIG.getBackendOrigin === 'function')
+    ? window.APP_CONFIG.getBackendOrigin()
+    : ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:')
+        ? (window.location.port === '3000' ? window.location.origin : 'http://localhost:3000')
+        : 'https://internship-project-backend-black.vercel.app');
 const AUTH_API = AUTH_ORIGIN + '/api/auth';
 
 let supabaseClientInstance = null;

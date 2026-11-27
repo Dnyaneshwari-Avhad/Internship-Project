@@ -17,25 +17,37 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-const allowedOrigins = (process.env.FRONTEND_URL || '')
+const configuredOrigins = (process.env.FRONTEND_URL || '')
     .split(',')
-    .map(o => o.trim())
+    .map(o => o.trim().replace(/\/+$/, ''))
     .filter(Boolean);
 
-app.use(cors({
+const allowedOrigins = Array.from(new Set([
+    'https://streamlinetechintern.vercel.app',
+    'http://localhost:3000',
+    ...configuredOrigins
+]));
+
+const corsOptions = {
     origin: function (origin, callback) {
         if (!origin) return callback(null, true);
+        const normalizedOrigin = origin.replace(/\/+$/, '');
         if (
             allowedOrigins.includes('*') ||
-            allowedOrigins.includes(origin) ||
-            /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)
+            allowedOrigins.includes(normalizedOrigin) ||
+            /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(normalizedOrigin)
         ) {
             return callback(null, true);
         }
-        return callback(new Error('Not allowed by CORS'));
+        return callback(new Error('Not allowed by CORS: ' + origin));
     },
-    credentials: true
-}));
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -95,6 +107,10 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Internal server error' });
 });
 
-app.listen(PORT, () => {
-    console.log(`Streamline Tech server running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Streamline Tech server running on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
