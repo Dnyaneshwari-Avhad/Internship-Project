@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <meta name="supabase-url" content="">
+    <meta name="supabase-anon-key" content="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <title>Courses – Streamline Tech Admin</title>
+</head>
+<body class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Admin Navigation">
+        <div class="sidebar-header">
+            <a href="/admin/dashboard" class="logo">
+                <span class="logo-icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                </span>
+                <span>Streamline Tech</span>
+            </a>
+            <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close navigation">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-label">Main</div>
+            <a href="/admin/dashboard" class="sidebar-link">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="/admin/students" class="sidebar-link">
+                <i class="fa-solid fa-users"></i>
+                <span>Students</span>
+            </a>
+            <a href="/admin/attendance" class="sidebar-link">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <span>Attendance</span>
+            </a>
+            <a href="/admin/aptitude" class="sidebar-link">
+                <i class="fa-solid fa-brain"></i>
+                <span>Aptitude</span>
+            </a>
+
+            <div class="sidebar-label">Management</div>
+            <a href="/admin/courses" class="sidebar-link active" aria-current="page">
+                <i class="fa-solid fa-book"></i>
+                <span>Courses</span>
+            </a>
+            <a href="/admin/batches" class="sidebar-link">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Batches</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user" id="sidebarUser">
+                <div class="sidebar-user-avatar" id="sidebarUserAvatar">A</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name" id="sidebarUserName">Admin</div>
+                    <div class="sidebar-user-role" id="sidebarUserRole">Admin</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <h1 class="page-title">Courses</h1>
+            </div>
+
+            <div class="top-bar-right">
+                <div class="top-bar-user" id="topBarUser">
+                    <div class="top-bar-avatar" id="topBarAvatar">A</div>
+                    <span id="topBarUserName">Admin</span>
+                </div>
+                <button type="button" class="logout-btn" id="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <section class="table-container" aria-labelledby="coursesHeading">
+                <div class="table-header">
+                    <h3 id="coursesHeading">Courses</h3>
+                    <div class="table-actions">
+                        <button type="button" class="btn btn-primary" id="addCourseBtn">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Add Course</span>
+                        </button>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Duration</th>
+                            <th>Technologies</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coursesTableBody">
+                        <tr>
+                            <td colspan="5" class="table-empty">
+                                <div class="loading-spinner">
+                                    <span class="spinner"></span>
+                                    <span>Loading courses...</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Course Modal -->
+    <div class="modal-overlay" id="courseModal" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="courseModalTitle">Add Course</h3>
+                <button type="button" class="modal-close" aria-label="Close modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="courseForm">
+                <div class="modal-body">
+                    <input type="hidden" id="courseId" name="id">
+
+                    <div class="form-group">
+                        <label class="form-label" for="courseName">Name</label>
+                        <input
+                            type="text"
+                            id="courseName"
+                            name="name"
+                            class="form-input"
+                            placeholder="e.g. Full Stack Web Development"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="courseDescription">Description</label>
+                        <textarea
+                            id="courseDescription"
+                            name="description"
+                            class="form-textarea"
+                            placeholder="Brief overview of the course curriculum and outcomes..."
+                        ></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="courseDuration">Duration</label>
+                            <input
+                                type="text"
+                                id="courseDuration"
+                                name="duration"
+                                class="form-input"
+                                placeholder="e.g. 6 Months"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="courseFee">Fee</label>
+                            <input
+                                type="number"
+                                id="courseFee"
+                                name="fee"
+                                class="form-input"
+                                min="0"
+                                step="0.01"
+                                placeholder="e.g. 25000"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label" for="courseTechnologies">Technologies</label>
+                        <input
+                            type="text"
+                            id="courseTechnologies"
+                            name="technologies"
+                            class="form-input"
+                            placeholder="e.g. HTML, CSS, JavaScript, React, Node.js"
+                        >
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveCourseBtn">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>Save Course</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script>
+        (function () {
+            const getMeta = (name) => {
+                const el = document.querySelector('meta[name="' + name + '"]');
+                return el ? el.getAttribute('content') || '' : '';
+            };
+
+            const env = (typeof window !== 'undefined' && window.__ENV__) ? window.__ENV__ : {};
+            window.APP_CONFIG = Object.freeze({
+                SUPABASE_URL: env.SUPABASE_URL || getMeta('supabase-url'),
+                SUPABASE_ANON_KEY: env.SUPABASE_ANON_KEY || getMeta('supabase-anon-key')
+            });
+        })();
+    </script>
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/admin-courses.js"></script>
+</body>
+</html>

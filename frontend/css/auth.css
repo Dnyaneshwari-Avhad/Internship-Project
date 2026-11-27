@@ -1,0 +1,304 @@
+/* ============================================
+   Auth Pages – Login, Signup & Profile Completion
+   ============================================ */
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-alt);
+    padding: 32px 20px;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 440px;
+    transition: max-width var(--transition-normal);
+}
+
+.auth-container.signup-mode {
+    max-width: 680px;
+}
+
+.auth-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.auth-header {
+    text-align: center;
+    padding: 32px 32px 0;
+}
+
+.auth-header .logo {
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.auth-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.auth-header p {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.auth-body {
+    padding: 28px 32px;
+}
+
+/* Auth Mode Tabs (Sign In / Sign Up) */
+.auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    background: var(--color-bg-alt);
+    padding: 4px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    margin-bottom: 22px;
+}
+
+.auth-tab {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    text-align: center;
+    background: transparent;
+}
+
+.auth-tab:hover {
+    color: var(--color-text);
+}
+
+.auth-tab.active {
+    background: var(--color-surface);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-xs);
+}
+
+/* Google OAuth Button */
+.btn-google {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 11px 16px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.btn-google:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-navy-medium);
+    box-shadow: var(--shadow-xs);
+}
+
+.btn-google:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Divider */
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+}
+
+/* Form Grouping for Registration */
+.form-section-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--color-primary);
+    margin: 20px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.form-section-title:first-of-type {
+    margin-top: 4px;
+}
+
+/* Password Toggle */
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper .form-input {
+    padding-right: 42px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast);
+}
+
+.password-toggle:hover {
+    color: var(--color-text);
+}
+
+.form-hint {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    margin-top: 4px;
+}
+
+.remember-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+}
+
+.remember-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+}
+
+.remember-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+}
+
+.forgot-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    background: none;
+    padding: 0;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.auth-body .form-group {
+    margin-bottom: 16px;
+}
+
+.auth-body .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.95rem;
+}
+
+/* Feedback Banners */
+.auth-error {
+    background: var(--color-danger-light);
+    color: var(--color-danger);
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-error.visible {
+    display: flex;
+}
+
+.auth-success {
+    background: var(--color-success-light);
+    color: var(--color-success);
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(22, 163, 74, 0.2);
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-success.visible {
+    display: flex;
+}
+
+.auth-loading {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    margin-bottom: 12px;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.auth-loading.visible {
+    display: flex;
+}
+
+.auth-footer {
+    text-align: center;
+    padding: 0 32px 24px;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.auth-footer a {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .auth-page { padding: 16px 12px; }
+    .auth-header { padding: 24px 20px 0; }
+    .auth-body { padding: 20px; }
+    .auth-footer { padding: 0 20px 20px; }
+    .auth-header h1 { font-size: 1.3rem; }
+}

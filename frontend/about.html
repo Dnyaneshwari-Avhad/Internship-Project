@@ -1,0 +1,406 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>About – Streamline Tech</title>
+    <style>
+        .about-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .about-highlight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+        .about-highlight-item:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .about-highlight-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .about-highlight-item h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .about-highlight-item p {
+            font-size: 0.875rem;
+            margin: 0;
+        }
+        .mv-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100%;
+        }
+        .mv-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: var(--color-navy);
+            color: var(--color-text-inverse);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+        .mv-icon.accent {
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+        }
+        .cta-band {
+            background: var(--color-navy);
+            color: var(--color-text-inverse);
+            border-radius: var(--radius-xl);
+            padding: 48px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .cta-band h2 {
+            color: var(--color-text-inverse);
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+        }
+        .cta-band p {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            max-width: 560px;
+        }
+        .cta-band-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .cta-band .btn-outline {
+            color: var(--color-text-inverse);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .cta-band .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: var(--color-text-inverse);
+        }
+        @media (max-width: 1024px) {
+            .offer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .offer-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-band {
+                padding: 32px 24px;
+            }
+            .cta-band-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+            .cta-band-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header" id="siteHeader">
+        <div class="header-inner">
+            <a href="/" class="logo">
+                <img src="/assets/logo.png" alt="Streamline Tech" class="logo-img">
+                Streamline Tech
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="/" class="">Home</a>
+                <a href="/about" class="active">About</a>
+                <a href="/courses" class="">Courses</a>
+                <a href="/contact" class="">Contact</a>
+                <a href="/login" class="btn btn-primary btn-sm">Login</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/" class="">Home</a>
+        <a href="/about" class="active">About</a>
+        <a href="/courses" class="">Courses</a>
+        <a href="/contact" class="">Contact</a>
+        <a href="/login" class="btn btn-primary" style="text-align:center;margin-top:12px;">Login</a>
+    </nav>
+
+    <main>
+        <!-- Page Banner -->
+        <section class="page-banner">
+            <div class="container">
+                <h1>About Streamline Tech</h1>
+                <p>Bridging academic learning and industry readiness through practical software engineering and technology training in Nashik.</p>
+            </div>
+        </section>
+
+        <!-- About / Company Overview Section -->
+        <section class="section" id="overview">
+            <div class="container">
+                <div class="grid grid-2 items-center gap-xl">
+                    <div>
+                        <span class="section-label">Who We Are</span>
+                        <h2 class="mb-md">Industry-Focused Tech Training in Nashik</h2>
+                        <p>Streamline Tech is a dedicated technology training and internship institute headquartered in Nashik, Maharashtra. We help college students, fresh graduates, and early-career professionals master modern software development, data science, and enterprise engineering practices.</p>
+                        <p>Rather than relying on passive lectures, our cohorts are structured around active coding, peer code reviews, and guided project delivery. Every curriculum is updated alongside industry hiring standards so learners graduate with demonstrable technical depth.</p>
+                        <div class="flex gap-md mt-lg" style="flex-wrap: wrap;">
+                            <a href="/courses" class="btn btn-primary">Explore Courses</a>
+                            <a href="/contact" class="btn btn-secondary">Visit Our Centers</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="about-highlights">
+                            <div class="about-highlight-item">
+                                <div class="about-highlight-icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4>Two Accessible Centers in Nashik</h4>
+                                    <p>Dedicated classrooms and collaborative lab spaces designed for focused, in-person mentorship.</p>
+                                </div>
+                            </div>
+                            <div class="about-highlight-item">
+                                <div class="about-highlight-icon">
+                                    <i class="fa-solid fa-code-branch"></i>
+                                </div>
+                                <div>
+                                    <h4>Production-Grade Curriculum</h4>
+                                    <p>Learn full-stack web development, Java enterprise systems, data analytics, and mobile engineering.</p>
+                                </div>
+                            </div>
+                            <div class="about-highlight-item">
+                                <div class="about-highlight-icon">
+                                    <i class="fa-solid fa-users-gear"></i>
+                                </div>
+                                <div>
+                                    <h4>Small, Mentor-Led Batches</h4>
+                                    <p>Structured cohort sizes ensure every student receives individualized feedback and career guidance.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Vision Sections -->
+        <section class="section" style="background: var(--color-bg-alt);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Our Purpose</span>
+                    <h2>Mission &amp; Vision</h2>
+                    <p>Driven by measurable student outcomes and a commitment to practical technical excellence.</p>
+                </div>
+                <div class="grid grid-2 gap-lg">
+                    <article class="card mv-card" id="mission">
+                        <div class="mv-icon accent">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <span class="section-label" style="margin-bottom: 0;">Our Mission</span>
+                        <h3>Empowering Students with Practical Skills</h3>
+                        <p style="margin-bottom: 0;">To equip aspiring technologists with hands-on engineering skills, real project experience, and problem-solving confidence through structured mentorship, continuous aptitude evaluation, and industry-aligned coursework.</p>
+                    </article>
+
+                    <article class="card mv-card" id="vision">
+                        <div class="mv-icon">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <span class="section-label" style="margin-bottom: 0;">Our Vision</span>
+                        <h3>Leading Tech Training Across Maharashtra</h3>
+                        <p style="margin-bottom: 0;">To become the most trusted and outcome-driven technology training platform in Maharashtra, known for transforming local talent into capable software engineers ready to contribute from day one.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- What We Offer Section -->
+        <section class="section" id="offerings">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">What We Offer</span>
+                    <h2>A Complete Learning Ecosystem</h2>
+                    <p>Every stage of our training model is designed to build technical fluency and workplace readiness.</p>
+                </div>
+                <div class="grid grid-3 offer-grid">
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h4>Practical Training Methodology</h4>
+                        <p>80% hands-on lab sessions focused on writing clean, modular code, debugging real issues, and understanding system architecture.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-diagram-project"></i>
+                        </div>
+                        <h4>Real-World Capstone Projects</h4>
+                        <p>Build and deploy end-to-end applications using Git workflows, REST APIs, and modern databases for a verifiable portfolio.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <h4>1-on-1 Mentorship</h4>
+                        <p>Direct access to experienced trainers for doubt resolution, code reviews, and personalized learning roadmaps.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <h4>Structured Internship Tracks</h4>
+                        <p>Work in agile team sprints with task tracking, milestone demos, and documentation standards used by engineering teams.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+                        <h4>Aptitude &amp; Mock Interviews</h4>
+                        <p>Weekly technical quizzes, coding assessments, and mock interviews to sharpen speed, clarity, and confidence.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <h4>Dedicated Placement Support</h4>
+                        <p>Resume building, GitHub and LinkedIn optimization, and interview preparation tailored to regional and national tech recruiters.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="section" id="stats" style="background: var(--color-bg-alt);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Our Impact</span>
+                    <h2>Numbers That Reflect Student Success</h2>
+                    <p>Consistent outcomes built across batches, courses, and dedicated mentorship in Nashik.</p>
+                </div>
+                <div class="grid grid-4">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-user-graduate"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>500+</h3>
+                            <p>Students Trained</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>15+</h3>
+                            <p>Courses</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-building"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>2</h3>
+                            <p>Centers</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>95%</h3>
+                            <p>Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="section-sm">
+            <div class="container">
+                <div class="cta-band">
+                    <div>
+                        <h2>Ready to Start Your Tech Journey?</h2>
+                        <p>Explore our upcoming cohorts or reach out to our counselors in Nashik for guidance on the right program.</p>
+                    </div>
+                    <div class="cta-band-actions">
+                        <a href="/courses" class="btn btn-primary btn-lg">View All Courses</a>
+                        <a href="/contact" class="btn btn-outline btn-lg">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="logo">
+                        <img src="/assets/logo.png" alt="Streamline Tech" class="logo-img">
+                        Streamline Tech
+                    </div>
+                    <p>Empowering careers through industry-focused training and internship programs in Nashik, Maharashtra.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="/">Home</a>
+                    <a href="/about">About Us</a>
+                    <a href="/courses">Courses</a>
+                    <a href="/contact">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Programs</h4>
+                    <a href="/courses">Web Development</a>
+                    <a href="/courses">Data Science</a>
+                    <a href="/courses">Java Programming</a>
+                    <a href="/courses">Mobile Apps</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <a href="mailto:info@streamlinetech.in"><i class="fa-solid fa-envelope"></i> info@streamlinetech.in</a>
+                    <a href="tel:+919876543210"><i class="fa-solid fa-phone"></i> +91 98765 43210</a>
+                    <a href="#"><i class="fa-solid fa-location-dot"></i> Nashik, Maharashtra</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Streamline Tech. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

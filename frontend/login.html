@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <meta name="description" content="Sign in or register for Streamline Tech Training & Internship Platform">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <title>Login &amp; Sign Up – Streamline Tech</title>
+</head>
+<body class="auth-page">
+    <main class="auth-container" id="authContainer">
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="/" class="logo" aria-label="Streamline Tech Home">
+                    <img src="/assets/logo.png" alt="Streamline Tech" class="logo-img">
+                    <span>Streamline Tech</span>
+                </a>
+                <h1 id="authHeading">Welcome back</h1>
+                <p id="authSubheading">Sign in to access your Streamline Tech portal</p>
+            </div>
+
+            <div class="auth-body">
+                <!-- Mode Switcher -->
+                <div class="auth-tabs" role="tablist" aria-label="Authentication mode">
+                    <button type="button" class="auth-tab active" id="tabSignIn" data-mode="signin" role="tab" aria-selected="true">
+                        Sign In
+                    </button>
+                    <button type="button" class="auth-tab" id="tabSignUp" data-mode="signup" role="tab" aria-selected="false">
+                        Student Sign Up
+                    </button>
+                </div>
+
+                <!-- Feedback Messages -->
+                <div class="auth-error" id="authError" role="alert" aria-live="polite">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span id="authErrorText"></span>
+                </div>
+
+                <div class="auth-success" id="authSuccess" role="status" aria-live="polite">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span id="authSuccessText"></span>
+                </div>
+
+                <div class="auth-loading" id="authLoading" aria-live="polite">
+                    <span class="spinner" aria-hidden="true"></span>
+                    <span id="authLoadingText">Please wait...</span>
+                </div>
+
+                <!-- Google OAuth -->
+                <div id="oauthSection">
+                    <button type="button" class="btn-google" id="googleSignInBtn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.14C3.26 21.3 7.37 24 12 24z"/>
+                            <path fill="#FBBC05" d="M5.28 14.24c-.24-.72-.38-1.49-.38-2.24s.14-1.52.38-2.24V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.99-3.14z"/>
+                            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.37 0 3.26 2.7 1.29 6.62l3.99 3.14c.95-2.85 3.6-4.96 6.72-4.96z"/>
+                        </svg>
+                        <span>Continue with Google</span>
+                    </button>
+
+                    <div class="auth-divider">or continue with email</div>
+                </div>
+
+                <!-- SIGN IN FORM -->
+                <form id="loginForm" novalidate>
+                    <div class="form-group">
+                        <label for="loginEmail" class="form-label">Email Address</label>
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            name="email"
+                            class="form-input"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <div class="password-wrapper">
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                name="password"
+                                class="form-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+                            <button type="button" class="password-toggle" data-target="loginPassword" aria-label="Show password">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="remember-row">
+                        <label class="remember-label">
+                            <input type="checkbox" id="rememberMe" checked>
+                            <span>Keep me signed in</span>
+                        </label>
+                        <button type="button" class="forgot-link" id="showForgotBtn">Forgot password?</button>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="loginBtn">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Sign In</span>
+                    </button>
+                </form>
+
+                <!-- STUDENT SIGN UP FORM -->
+                <form id="signupForm" class="hidden" novalidate>
+                    <div class="form-section-title">Personal Information</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupFirstName" class="form-label">First Name *</label>
+                            <input type="text" id="signupFirstName" name="first_name" class="form-input" placeholder="Aarav" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupLastName" class="form-label">Last Name *</label>
+                            <input type="text" id="signupLastName" name="last_name" class="form-input" placeholder="Patil" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupEmail" class="form-label">Email Address *</label>
+                            <input type="email" id="signupEmail" name="email" class="form-input" placeholder="student@example.com" autocomplete="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPhone" class="form-label">Phone Number *</label>
+                            <input type="tel" id="signupPhone" name="phone" class="form-input" placeholder="9876543210" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupDob" class="form-label">Date of Birth *</label>
+                            <input type="date" id="signupDob" name="date_of_birth" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupProfileImg" class="form-label">Profile Image URL (Optional)</label>
+                            <input type="url" id="signupProfileImg" name="profile_image" class="form-input" placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <div class="form-section-title">Academic Details</div>
+                    <div class="form-group">
+                        <label for="signupCollege" class="form-label">College Name *</label>
+                        <input type="text" id="signupCollege" name="college_name" class="form-input" placeholder="e.g., K.K. Wagh Institute of Engineering" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupBranch" class="form-label">Branch / Department *</label>
+                            <input type="text" id="signupBranch" name="branch" class="form-input" placeholder="e.g., Computer Engineering" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupYear" class="form-label">Current Academic Year *</label>
+                            <select id="signupYear" name="academic_year" class="form-select" required>
+                                <option value="">Select Year</option>
+                                <option value="First Year">First Year</option>
+                                <option value="Second Year">Second Year</option>
+                                <option value="Third Year">Third Year</option>
+                                <option value="Final Year">Final Year</option>
+                                <option value="Graduate">Graduate</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section-title">Program Selection</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupCenter" class="form-label">Training Center *</label>
+                            <select id="signupCenter" name="center_id" class="form-select" required>
+                                <option value="">Loading centers...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupCourse" class="form-label">Course *</label>
+                            <select id="signupCourse" name="course_id" class="form-select" required>
+                                <option value="">Loading courses...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section-title">Account Security</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupPassword" class="form-label">Password *</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="signupPassword" name="password" class="form-input" placeholder="Min. 8 chars (letters + numbers)" autocomplete="new-password" required>
+                                <button type="button" class="password-toggle" data-target="signupPassword" aria-label="Show password">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupConfirmPassword" class="form-label">Confirm Password *</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="signupConfirmPassword" name="confirm_password" class="form-input" placeholder="Re-enter password" autocomplete="new-password" required>
+                                <button type="button" class="password-toggle" data-target="signupConfirmPassword" aria-label="Show password">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="signupBtn">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Create Student Account</span>
+                    </button>
+                </form>
+
+                <!-- FORGOT PASSWORD FORM -->
+                <form id="forgotForm" class="hidden" novalidate>
+                    <div class="form-group">
+                        <label for="forgotEmail" class="form-label">Registered Email Address</label>
+                        <input
+                            type="email"
+                            id="forgotEmail"
+                            name="email"
+                            class="form-input"
+                            placeholder="you@example.com"
+                            required
+                        >
+                        <span class="form-hint">We will send a password reset link to this email.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="forgotBtn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Send Reset Link</span>
+                    </button>
+
+                    <div class="text-center mt-md">
+                        <button type="button" class="forgot-link" id="backToSignInBtn">
+                            <i class="fa-solid fa-arrow-left"></i> Back to Sign In
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="auth-footer">
+                <a href="/">
+                    <i class="fa-solid fa-arrow-left"></i> Back to website
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

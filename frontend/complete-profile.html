@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <meta name="description" content="Complete your student profile – Streamline Tech">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <title>Complete Your Profile – Streamline Tech</title>
+</head>
+<body class="auth-page">
+    <main class="auth-container signup-mode">
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="/" class="logo" aria-label="Streamline Tech Home">
+                    <img src="/assets/logo.png" alt="Streamline Tech" class="logo-img">
+                    <span>Streamline Tech</span>
+                </a>
+                <h1>Complete Your Student Profile</h1>
+                <p>Just a few more details before we open your Student Portal</p>
+            </div>
+
+            <div class="auth-body">
+                <div class="auth-error" id="authError" role="alert" aria-live="polite">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span id="authErrorText"></span>
+                </div>
+
+                <div class="auth-loading" id="authLoading" aria-live="polite">
+                    <span class="spinner" aria-hidden="true"></span>
+                    <span>Saving your profile...</span>
+                </div>
+
+                <form id="completeProfileForm" novalidate>
+                    <div class="form-section-title">Personal Information</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cpFirstName" class="form-label">First Name *</label>
+                            <input type="text" id="cpFirstName" name="first_name" class="form-input" placeholder="First name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cpLastName" class="form-label">Last Name *</label>
+                            <input type="text" id="cpLastName" name="last_name" class="form-input" placeholder="Last name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cpEmail" class="form-label">Email Address</label>
+                            <input type="email" id="cpEmail" name="email" class="form-input" readonly style="background: var(--color-bg-alt); cursor: not-allowed;">
+                            <span class="form-hint">Verified from your Google / Auth account</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="cpPhone" class="form-label">Phone Number *</label>
+                            <input type="tel" id="cpPhone" name="phone" class="form-input" placeholder="9876543210" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpDob" class="form-label">Date of Birth *</label>
+                        <input type="date" id="cpDob" name="date_of_birth" class="form-input" required>
+                    </div>
+
+                    <div class="form-section-title">Academic Details</div>
+                    <div class="form-group">
+                        <label for="cpCollege" class="form-label">College Name *</label>
+                        <input type="text" id="cpCollege" name="college_name" class="form-input" placeholder="e.g., K.K. Wagh Institute of Engineering" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cpBranch" class="form-label">Branch / Department *</label>
+                            <input type="text" id="cpBranch" name="branch" class="form-input" placeholder="e.g., Computer Engineering" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cpYear" class="form-label">Current Academic Year *</label>
+                            <select id="cpYear" name="academic_year" class="form-select" required>
+                                <option value="">Select Year</option>
+                                <option value="First Year">First Year</option>
+                                <option value="Second Year">Second Year</option>
+                                <option value="Third Year">Third Year</option>
+                                <option value="Final Year">Final Year</option>
+                                <option value="Graduate">Graduate</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section-title">Program &amp; Center</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cpCenter" class="form-label">Training Center *</label>
+                            <select id="cpCenter" name="center_id" class="form-select" required>
+                                <option value="">Loading centers...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cpCourse" class="form-label">Course *</label>
+                            <select id="cpCourse" name="course_id" class="form-select" required>
+                                <option value="">Loading courses...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpBatch" class="form-label">Batch (Optional)</label>
+                        <select id="cpBatch" name="batch_id" class="form-select">
+                            <option value="">Not assigned / Select if known</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="completeProfileBtn">
+                        <i class="fa-solid fa-check"></i>
+                        <span>Save &amp; Continue to Portal</span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="auth-footer">
+                <a href="#" id="cpLogoutLink">
+                    <i class="fa-solid fa-right-from-bracket"></i> Sign out and use a different account
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

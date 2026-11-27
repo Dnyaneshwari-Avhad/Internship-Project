@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <title>Aptitude Progress – Streamline Tech Admin</title>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Mobile Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="/admin/dashboard" class="logo">
+                    <span class="logo-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </span>
+                    <span>Streamline Tech</span>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Admin Navigation">
+                <div class="sidebar-label">Overview</div>
+                <a href="/admin/dashboard" class="sidebar-link">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/admin/students" class="sidebar-link">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+                <a href="/admin/courses" class="sidebar-link">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="/admin/batches" class="sidebar-link">
+                    <i class="fa-solid fa-users-rectangle"></i>
+                    <span>Batches</span>
+                </a>
+
+                <div class="sidebar-label">Academics</div>
+                <a href="/admin/attendance" class="sidebar-link">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Attendance</span>
+                </a>
+                <a href="/admin/aptitude" class="sidebar-link active">
+                    <i class="fa-solid fa-brain"></i>
+                    <span>Aptitude</span>
+                </a>
+                <a href="/admin/announcements" class="sidebar-link">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span>Announcements</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar" id="sidebarUserAvatar">A</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name" id="sidebarUserName">Administrator</div>
+                        <div class="sidebar-user-role" id="sidebarUserRole">admin</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open sidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">Aptitude Progress</h1>
+                </div>
+
+                <div class="top-bar-right">
+                    <div class="top-bar-user">
+                        <div class="top-bar-avatar" id="topBarAvatar">A</div>
+                        <span id="topBarUserName">Admin</span>
+                    </div>
+                    <button type="button" class="logout-btn" id="logoutBtn">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Summary Stats -->
+                <section class="stats-grid" aria-label="Aptitude Summary Statistics">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="aptTotalLectures">0</h3>
+                            <p>Total Lectures</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="aptAvgCompleted">0</h3>
+                            <p>Average Completed</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-hourglass-half"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="aptAvgRemaining">0</h3>
+                            <p>Average Remaining</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Student Progress Table -->
+                <section class="table-container" aria-label="Student Aptitude Progress">
+                    <div class="table-header">
+                        <h3>Student Progress</h3>
+                        <div class="table-actions">
+                            <div class="search-bar">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input
+                                    type="search"
+                                    id="aptitudeSearch"
+                                    placeholder="Search student, email, or batch..."
+                                    aria-label="Search student aptitude progress"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Email</th>
+                                <th>Batch</th>
+                                <th>Total Lectures</th>
+                                <th>Completed</th>
+                                <th>Remaining</th>
+                                <th>Progress</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="aptitudeTableBody">
+                            <tr>
+                                <td colspan="8">
+                                    <div class="table-empty">
+                                        <div class="loading-spinner">
+                                            <span class="spinner"></span>
+                                            <span>Loading aptitude progress...</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Aptitude Progress Modal -->
+    <div class="modal-overlay" id="aptitudeModal" role="dialog" aria-modal="true" aria-labelledby="aptitudeModalTitle">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="aptitudeModalTitle">Edit Aptitude Progress</h3>
+                <button type="button" class="modal-close" id="closeAptitudeModal" aria-label="Close modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="aptitudeForm">
+                <div class="modal-body">
+                    <input type="hidden" id="editStudentId" name="student_id">
+
+                    <div class="form-group">
+                        <label class="form-label">Student Name</label>
+                        <div
+                            id="editStudentName"
+                            class="form-input"
+                            style="background: var(--color-bg-alt); font-weight: 500;"
+                        >—</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="editTotalLectures">Total Lectures</label>
+                            <input
+                                type="number"
+                                id="editTotalLectures"
+                                name="total_lectures"
+                                class="form-input"
+                                min="0"
+                                step="1"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="editCompletedLectures">Completed Lectures</label>
+                            <input
+                                type="number"
+                                id="editCompletedLectures"
+                                name="completed_lectures"
+                                class="form-input"
+                                min="0"
+                                step="1"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label" for="editAptitudeNotes">Notes</label>
+                        <textarea
+                            id="editAptitudeNotes"
+                            name="notes"
+                            class="form-textarea"
+                            placeholder="Add optional progress notes or feedback..."
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelAptitudeModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveAptitudeBtn">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>Save Changes</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/admin-aptitude.js"></script>
+</body>
+</html>

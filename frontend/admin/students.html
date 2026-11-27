@@ -1,0 +1,338 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <meta name="supabase-url" content="">
+    <meta name="supabase-anon-key" content="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <title>Students – Streamline Tech Admin</title>
+</head>
+<body class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Admin Navigation">
+        <div class="sidebar-header">
+            <a href="/admin/dashboard" class="logo">
+                <span class="logo-icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                </span>
+                <span>Streamline Tech</span>
+            </a>
+            <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close navigation">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-label">Main</div>
+            <a href="/admin/dashboard" class="sidebar-link">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="/admin/students" class="sidebar-link active" aria-current="page">
+                <i class="fa-solid fa-users"></i>
+                <span>Students</span>
+            </a>
+            <a href="/admin/attendance" class="sidebar-link">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <span>Attendance</span>
+            </a>
+            <a href="/admin/aptitude" class="sidebar-link">
+                <i class="fa-solid fa-brain"></i>
+                <span>Aptitude</span>
+            </a>
+
+            <div class="sidebar-label">Management</div>
+            <a href="/admin/courses" class="sidebar-link">
+                <i class="fa-solid fa-book"></i>
+                <span>Courses</span>
+            </a>
+            <a href="/admin/batches" class="sidebar-link">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Batches</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user" id="sidebarUser">
+                <div class="sidebar-user-avatar" id="sidebarUserAvatar">A</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name" id="sidebarUserName">Admin</div>
+                    <div class="sidebar-user-role" id="sidebarUserRole">Admin</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <h1 class="page-title">Student Management</h1>
+            </div>
+
+            <div class="top-bar-right">
+                <div class="top-bar-user" id="topBarUser">
+                    <div class="top-bar-avatar" id="topBarAvatar">A</div>
+                    <span id="topBarUserName">Admin</span>
+                </div>
+                <button type="button" class="logout-btn" id="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <section class="table-container" aria-label="Students List">
+                <div class="table-header">
+                    <h3>Students</h3>
+                    <div class="table-actions" style="flex-wrap: wrap;">
+                        <div class="search-bar">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input
+                                type="search"
+                                id="studentSearch"
+                                placeholder="Search students..."
+                                aria-label="Search students"
+                            >
+                        </div>
+
+                        <select id="filterCourse" class="filter-select" aria-label="Filter by Course">
+                            <option value="">All Courses</option>
+                        </select>
+
+                        <select id="filterBatch" class="filter-select" aria-label="Filter by Batch">
+                            <option value="">All Batches</option>
+                        </select>
+
+                        <select id="filterCenter" class="filter-select" aria-label="Filter by Center">
+                            <option value="">All Centers</option>
+                        </select>
+
+                        <select id="filterStatus" class="filter-select" aria-label="Filter by Status">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="completed">Completed</option>
+                        </select>
+
+                        <button type="button" class="btn btn-primary" id="addStudentBtn">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Add Student</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>College</th>
+                                <th>Course</th>
+                                <th>Batch</th>
+                                <th>Center</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="table-empty hidden" id="studentsEmpty">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <p>No students found</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Student Modal -->
+    <div class="modal-overlay" id="studentModal" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="studentModalTitle">Add Student</h3>
+                <button type="button" class="modal-close" id="closeStudentModal" aria-label="Close modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="studentForm">
+                <div class="modal-body">
+                    <input type="hidden" id="studentId" name="id">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="studentFullName">Full Name</label>
+                            <input
+                                type="text"
+                                id="studentFullName"
+                                name="full_name"
+                                class="form-input"
+                                placeholder="Enter full name"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="studentEmail">Email</label>
+                            <input
+                                type="email"
+                                id="studentEmail"
+                                name="email"
+                                class="form-input"
+                                placeholder="student@example.com"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="studentPhone">Phone</label>
+                            <input
+                                type="tel"
+                                id="studentPhone"
+                                name="phone"
+                                class="form-input"
+                                placeholder="Enter phone number"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="studentCollege">College Name</label>
+                            <input
+                                type="text"
+                                id="studentCollege"
+                                name="college_name"
+                                class="form-input"
+                                placeholder="Enter college name"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="studentCourse">Course</label>
+                            <select id="studentCourse" name="course_id" class="form-select">
+                                <option value="">Select Course</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="studentBatch">Batch</label>
+                            <select id="studentBatch" name="batch_id" class="form-select">
+                                <option value="">Select Batch</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="studentCenter">Training Center</label>
+                            <select id="studentCenter" name="center_id" class="form-select">
+                                <option value="">Select Center</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="studentJoiningDate">Joining Date</label>
+                            <input
+                                type="date"
+                                id="studentJoiningDate"
+                                name="joining_date"
+                                class="form-input"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelStudentModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="studentSubmitBtn">Save Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="deleteModalTitle">Delete Student</h3>
+                <button type="button" class="modal-close" id="closeDeleteModal" aria-label="Close modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="deleteStudentId">
+                <p>Are you sure you want to delete <strong id="deleteStudentName">this student</strong>? This action cannot be undone.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelDeleteModal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>Delete</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script>
+        (function () {
+            const getMeta = (name) => {
+                const el = document.querySelector('meta[name="' + name + '"]');
+                return el ? el.getAttribute('content') || '' : '';
+            };
+
+            const env = (typeof window !== 'undefined' && window.__ENV__) ? window.__ENV__ : {};
+            window.APP_CONFIG = Object.freeze({
+                SUPABASE_URL: env.SUPABASE_URL || getMeta('supabase-url'),
+                SUPABASE_ANON_KEY: env.SUPABASE_ANON_KEY || getMeta('supabase-anon-key')
+            });
+
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebarClose = document.getElementById('sidebarClose');
+
+            const closeSidebar = () => {
+                if (sidebar) sidebar.classList.remove('open');
+                if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+            };
+
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', () => {
+                    sidebar.classList.add('open');
+                    if (sidebarOverlay) sidebarOverlay.classList.add('active');
+                });
+            }
+            if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
+            if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+        })();
+    </script>
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/admin-students.js"></script>
+</body>
+</html>

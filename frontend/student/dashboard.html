@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <meta name="supabase-url" content="">
+    <meta name="supabase-anon-key" content="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <title>Student Portal – Streamline Tech</title>
+</head>
+<body class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Student Navigation">
+        <div class="sidebar-header">
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <span>Streamline Tech</span>
+            </a>
+            <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-label">Student Menu</div>
+            <a href="#overview" class="sidebar-link active" data-section="overview">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#profile" class="sidebar-link" data-section="profile">
+                <i class="fa-solid fa-user"></i>
+                <span>My Profile</span>
+            </a>
+            <a href="#attendance" class="sidebar-link" data-section="attendance">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <span>Attendance</span>
+            </a>
+            <a href="#aptitude" class="sidebar-link" data-section="aptitude">
+                <i class="fa-solid fa-brain"></i>
+                <span>Aptitude</span>
+            </a>
+            <a href="#announcements" class="sidebar-link" data-section="announcements">
+                <i class="fa-solid fa-bullhorn"></i>
+                <span>Announcements</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user" id="sidebarUser">
+                <div class="sidebar-user-avatar" id="sidebarUserAvatar">ST</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name" id="sidebarUserName">Student</div>
+                    <div class="sidebar-user-role" id="sidebarUserRole">student</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open sidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <h1 class="page-title" id="pageTitle">Student Portal</h1>
+            </div>
+            <div class="top-bar-right">
+                <button type="button" class="logout-btn" id="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <!-- Overview Section -->
+            <section id="overviewSection" class="dashboard-section">
+                <div class="card mb-lg">
+                    <div class="card-header">
+                        <div>
+                            <h4>Welcome back, <span id="welcomeName">Student</span></h4>
+                            <p class="mb-sm">Track your attendance, aptitude progress, and center updates.</p>
+                        </div>
+                        <span class="badge badge-primary" id="overviewStatusBadge">Active</span>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="attendancePercent">0%</h3>
+                            <p>Attendance %</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="presentDays">0</h3>
+                            <p>Present Days</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="aptCompleted">0</h3>
+                            <p>Aptitude Completed</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-hourglass-half"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="aptRemaining">0</h3>
+                            <p>Aptitude Remaining</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Quick Info</h3>
+                    </div>
+                    <div class="profile-row">
+                        <span class="profile-row-label">Course</span>
+                        <span class="profile-row-value" id="quickCourse">—</span>
+                    </div>
+                    <div class="profile-row">
+                        <span class="profile-row-label">Batch</span>
+                        <span class="profile-row-value" id="quickBatch">—</span>
+                    </div>
+                    <div class="profile-row">
+                        <span class="profile-row-label">Center</span>
+                        <span class="profile-row-value" id="quickCenter">—</span>
+                    </div>
+                    <div class="profile-row">
+                        <span class="profile-row-label">Joining Date</span>
+                        <span class="profile-row-value" id="quickJoiningDate">—</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profileSection" class="dashboard-section hidden">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="profileAvatar">ST</div>
+                        <h2 id="profileHeaderName">Student Name</h2>
+                        <p id="profileHeaderEmail">student@example.com</p>
+                    </div>
+                    <div class="profile-details">
+                        <div class="profile-row">
+                            <span class="profile-row-label">Full Name</span>
+                            <span class="profile-row-value" id="profileFullName">—</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-row-label">Email</span>
+                            <span class="profile-row-value" id="profileEmail">—</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-row-label">Phone</span>
+                            <span class="profile-row-value" id="profilePhone">—</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-row-label">College</span>
+                            <span class="profile-row-value" id="profileCollege">—</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-row-label">Course</span>
+                            <span class="profile-row-value" id="profileCourse">—</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-row-label">Batch</span>
+                            <span class="profile-row-value" id="profileBatch">—</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-row-label">Center</span>
+                            <span class="profile-row-value" id="profileCenter">—</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-row-label">Joining Date</span>
+                            <span class="profile-row-value" id="profileJoiningDate">—</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-row-label">Status</span>
+                            <span class="profile-row-value" id="profileStatus">
+                                <span class="badge badge-success">Active</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attendance Section -->
+            <section id="attendanceSection" class="dashboard-section hidden">
+                <div class="card mb-lg">
+                    <div class="card-header">
+                        <h3 class="card-title">Attendance Summary</h3>
+                        <span class="badge badge-primary" id="attendanceSummaryBadge">0%</span>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fa-solid fa-percent"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="attSummaryPercent">0%</h3>
+                                <p>Overall Percentage</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="attSummaryPresent">0</h3>
+                                <p>Present Count</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon red">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="attSummaryAbsent">0</h3>
+                                <p>Absent Count</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Attendance History</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTableBody">
+                            <tr>
+                                <td colspan="2" class="table-empty">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    No attendance records available.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Aptitude Section -->
+            <section id="aptitudeSection" class="dashboard-section hidden">
+                <div class="card mb-lg">
+                    <div class="card-header">
+                        <h3 class="card-title">Aptitude Progress</h3>
+                        <span class="badge badge-primary" id="aptProgressPercent">0%</span>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fa-solid fa-book-open"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="aptTotal">0</h3>
+                                <p>Total Lectures</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="aptCompletedDetail">0</h3>
+                                <p>Completed</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="aptRemainingDetail">0</h3>
+                                <p>Remaining</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-md">
+                        <div class="flex justify-between mb-sm">
+                            <span class="profile-row-label">Completion Progress</span>
+                            <span class="profile-row-value" id="aptProgressLabel">0 / 0 Lectures</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="aptProgressBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="aptitudeNotesCard">
+                    <div class="card-header">
+                        <h3 class="card-title">Notes</h3>
+                    </div>
+                    <p id="aptitudeNotes" class="mb-sm">No notes available.</p>
+                </div>
+            </section>
+
+            <!-- Announcements Section -->
+            <section id="announcementsSection" class="dashboard-section hidden">
+                <div class="card-header mb-md">
+                    <h3 class="card-title">Announcements</h3>
+                </div>
+                <div id="announcementsList">
+                    <div class="announcement-card">
+                        <h4>No Announcements</h4>
+                        <p>There are currently no active announcements for your batch or center.</p>
+                        <span class="announcement-date">—</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        window.APP_CONFIG = {
+            supabaseUrl: document.querySelector('meta[name="supabase-url"]')?.getAttribute('content') || '',
+            supabaseAnonKey: document.querySelector('meta[name="supabase-anon-key"]')?.getAttribute('content') || ''
+        };
+    </script>
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/student-dashboard.js"></script>
+</body>
+</html>

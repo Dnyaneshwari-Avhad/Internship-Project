@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+    <title>Dashboard – Streamline Tech Admin</title>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar" aria-label="Admin Navigation">
+            <div class="sidebar-header">
+                <a href="/admin/dashboard" class="logo">
+                    <span class="logo-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </span>
+                    <span>Streamline Tech</span>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close navigation">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="sidebar-label">Main</div>
+                <a href="/admin/dashboard" class="sidebar-link active">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/admin/students" class="sidebar-link">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Students</span>
+                </a>
+                <a href="/admin/attendance" class="sidebar-link">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Attendance</span>
+                </a>
+                <a href="/admin/aptitude" class="sidebar-link">
+                    <i class="fa-solid fa-brain"></i>
+                    <span>Aptitude</span>
+                </a>
+
+                <div class="sidebar-label">Management</div>
+                <a href="/admin/courses" class="sidebar-link">
+                    <i class="fa-solid fa-book"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="/admin/batches" class="sidebar-link">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Batches</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user" id="sidebarUser">
+                    <div class="sidebar-user-avatar" id="sidebarUserAvatar">A</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name" id="sidebarUserName">Admin</div>
+                        <div class="sidebar-user-role" id="sidebarUserRole">Admin</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">Dashboard</h1>
+                </div>
+
+                <div class="top-bar-right">
+                    <div class="top-bar-user" id="topBarUser">
+                        <div class="top-bar-avatar" id="topBarAvatar">A</div>
+                        <span id="topBarUserName">Admin</span>
+                    </div>
+                    <button type="button" class="logout-btn" id="logoutBtn">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </header>
+
+            <main class="dashboard-content">
+                <!-- Stats Cards -->
+                <section class="stats-grid" aria-label="Key Statistics">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalStudents">0</h3>
+                            <p>Total Students</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="activeStudents">0</h3>
+                            <p>Active Students</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalBatches">0</h3>
+                            <p>Total Batches</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="todayAttendance">0</h3>
+                            <p>Today's Attendance</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="aptitudeCompleted">0</h3>
+                            <p>Aptitude Completed</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Chart & Recent Students -->
+                <section class="dashboard-grid" aria-label="Attendance and Recent Students">
+                    <div class="chart-container">
+                        <div class="card-header">
+                            <h2 class="card-title">Attendance Overview</h2>
+                            <span class="badge badge-primary">Last 7 Days</span>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="attendanceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Recent Students</h2>
+                            <a href="/admin/students" class="btn btn-secondary btn-sm">View All</a>
+                        </div>
+                        <ul class="recent-list" id="recentStudents">
+                            <li class="recent-item">
+                                <div class="loading-spinner">
+                                    <span class="spinner"></span>
+                                    <span>Loading students...</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Center-wise Stats -->
+                <section class="card mt-lg" aria-labelledby="centerStatsHeading">
+                    <div class="card-header">
+                        <h2 class="card-title" id="centerStatsHeading">Center-wise Statistics</h2>
+                        <span class="badge badge-dark">Centers</span>
+                    </div>
+                    <div class="center-stats-grid" id="centerStats">
+                        <div class="loading-spinner">
+                            <span class="spinner"></span>
+                            <span>Loading center statistics...</span>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/admin-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <title>Batches – Streamline Tech Admin</title>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="/admin/dashboard" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <span>Streamline Tech</span>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="sidebar-label">Overview</div>
+                <a href="/admin/dashboard" class="sidebar-link">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <div class="sidebar-label">Management</div>
+                <a href="/admin/students" class="sidebar-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+                <a href="/admin/courses" class="sidebar-link">
+                    <i class="fas fa-book-open"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="/admin/batches" class="sidebar-link active">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Batches</span>
+                </a>
+
+                <div class="sidebar-label">Academics</div>
+                <a href="/admin/attendance" class="sidebar-link">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+                <a href="/admin/aptitude" class="sidebar-link">
+                    <i class="fas fa-brain"></i>
+                    <span>Aptitude Progress</span>
+                </a>
+                <a href="/admin/announcements" class="sidebar-link">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Announcements</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar" id="sidebarAvatar">A</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name" id="sidebarUserName">Admin</div>
+                        <div class="sidebar-user-role" id="sidebarUserRole">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">Batches</h1>
+                </div>
+
+                <div class="top-bar-right">
+                    <div class="top-bar-user">
+                        <div class="top-bar-avatar" id="topBarAvatar">A</div>
+                        <span id="topBarUserName">Admin</span>
+                    </div>
+                    <button type="button" class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Filters -->
+                <div class="filters-bar">
+                    <select class="filter-select" id="courseFilter" aria-label="Filter by course">
+                        <option value="">All Courses</option>
+                    </select>
+                    <select class="filter-select" id="centerFilter" aria-label="Filter by center">
+                        <option value="">All Centers</option>
+                    </select>
+                </div>
+
+                <!-- Batches Table -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Batches</h3>
+                        <div class="table-actions">
+                            <button type="button" class="btn btn-primary" id="addBatchBtn">
+                                <i class="fas fa-plus"></i>
+                                <span>Add Batch</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Center</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Timing</th>
+                                <th>Students</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="batchesTableBody">
+                            <tr>
+                                <td colspan="9" class="table-empty">
+                                    <div class="loading-spinner">
+                                        <div class="spinner"></div>
+                                        <span>Loading batches...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Batch Modal -->
+    <div class="modal-overlay" id="batchModal" role="dialog" aria-modal="true" aria-labelledby="batchModalTitle">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="batchModalTitle">Add Batch</h3>
+                <button type="button" class="modal-close" id="closeBatchModal" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="batchForm">
+                <div class="modal-body">
+                    <input type="hidden" id="batchId">
+
+                    <div class="form-group">
+                        <label class="form-label" for="batchName">Batch Name *</label>
+                        <input type="text" class="form-input" id="batchName" name="name" placeholder="e.g. FSWD Morning Batch 01" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="batchCourse">Course *</label>
+                            <select class="form-select" id="batchCourse" name="course_id" required>
+                                <option value="">Select Course</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="batchCenter">Center *</label>
+                            <select class="form-select" id="batchCenter" name="center_id" required>
+                                <option value="">Select Center</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="batchStartDate">Start Date</label>
+                            <input type="date" class="form-input" id="batchStartDate" name="start_date">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="batchEndDate">End Date</label>
+                            <input type="date" class="form-input" id="batchEndDate" name="end_date">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="batchTiming">Timing</label>
+                            <input type="text" class="form-input" id="batchTiming" name="timing" placeholder="e.g. 10:00 AM - 12:00 PM">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="batchMaxStudents">Max Students</label>
+                            <input type="number" class="form-input" id="batchMaxStudents" name="max_students" min="1" placeholder="30">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelBatchModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveBatchBtn">
+                        <i class="fas fa-save"></i>
+                        <span>Save Batch</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/admin-batches.js"></script>
+</body>
+</html>
