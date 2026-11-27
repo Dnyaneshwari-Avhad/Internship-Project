@@ -431,7 +431,7 @@ async function handleOAuthCallbackIfPresent() {
         return true;
     } catch (err) {
         setAuthLoading(false);
-        showAuthError(err.message || 'Google sign-in failed.');
+        showAuthError(err.message || 'Google sign-in failed. Please try again or use email/password.');
         window.history.replaceState({}, document.title, window.location.pathname);
         return true;
     }
@@ -532,7 +532,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 try {
                     var client = await getSupabaseClient();
                     if (!client) {
-                        throw new Error('Google sign-in is not configured. Check Supabase keys in .env.');
+                        throw new Error('Google sign-in is temporarily unavailable. Please use email/password or try again shortly.');
                     }
                     var redirectTo = window.location.origin + '/login';
                     var res = await client.auth.signInWithOAuth({

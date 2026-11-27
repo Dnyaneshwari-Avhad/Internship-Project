@@ -122,9 +122,14 @@ async function findOrLinkStudent(user) {
 
 // ---- Public Auth Config (ONLY URL + public Anon Key, never Service Role Key) ----
 router.get('/config', (req, res) => {
+    const url = process.env.SUPABASE_URL;
+    const key = process.env.SUPABASE_ANON_KEY;
+    if (!url || !key) {
+        return res.status(503).json({ error: 'Supabase is not configured. Set SUPABASE_URL and SUPABASE_ANON_KEY in Vercel environment variables.' });
+    }
     res.json({
-        supabaseUrl: process.env.SUPABASE_URL,
-        supabaseAnonKey: process.env.SUPABASE_ANON_KEY
+        supabaseUrl: url,
+        supabaseAnonKey: key
     });
 });
 
